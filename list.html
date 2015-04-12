@@ -7,6 +7,7 @@
   <script src='http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
   -->
   <script src="./list.js"></script>
+  <script src="./checknotlogin.js"></script>
   <style>
       #list-table { width: 100%; }
   </style>
@@ -23,19 +24,23 @@
                 <th>标题</th>
                 <th>作者</th>
                 <th>发表日期</th>
+                <th>关键词</th>
                 <th>操作</th>
             </tr>
         </table>
         <div class="panel-body">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <input type="text" id="title-txt" placeholder="标题"  class="form-control" />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <input type="text" id="au-txt" placeholder="作者"  class="form-control" />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <input type="text" id="date-txt" placeholder="日期"  class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <input type="text" id="kw-txt" placeholder="关键字"  class="form-control" />
             </div>
             <div class="col-md-1">
                 <input type="button" id="search-btn" value="搜索" class="btn btn-primary btn-block" />
