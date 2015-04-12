@@ -15,6 +15,8 @@ $(function()
           alert('登录成功！');
           localStorage.setItem('un', un);
           localStorage.setItem('pw', pw);
+          localStorage.setItem('id',
+            $(data).find('Collection').find(':eq(0)').find('id').text())
           location.href = './list.html';
         }
       });

@@ -43,6 +43,10 @@ $(function()
                   alert('注册成功！');
                   localStorage.setItem('un', un);
                   localStorage.setItem('pw', pw);
+                  var t = $(data).find('Operation-Resource').text();
+                  var l = t.split('/');
+                  var id = l[l.length - 1];
+                  localStorage.setItem('id', id);
                   location.href = './list.html';
                 }
             },
