@@ -15,8 +15,37 @@ $(function()
     
     var postFile = function(eid)
     {
-        alert('提交成功！');
-        location.href= './list.html';
+        
+        var url = "http://202.120.40.175:40011/Entity/" + 
+                  "Ucacb1171b84/xiaoQian/Essay/" + eid.toString();
+        var frm = new FormData();
+        frm.append('file', $('#file')[0].files[0]);
+
+        $.ajax(
+        {
+            type : "POST",
+            async : false,
+            url : url,
+            contentType : false,
+            data: frm,
+            processData : false,
+            success : function(data) 
+            {
+                console.log('success');
+                if (data != "Upload Success")
+                  alert('提交失败！' + msg);
+                else
+                {
+                  alert('提交成功！');
+                  //location.href= './list.html';
+                }
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) 
+            {
+                console.log('error');
+                alert('提交失败！' + textStatus);
+            }
+        });
     };
     
     var postEssay = function(auid)
@@ -57,7 +86,9 @@ $(function()
                   alert('提交失败！' + msg);
                 else
                 {
-                  var id = $(data).find('id').text();
+                  var t = $(data).find('Operation-Resource').text();
+                  var l = t.split('/');
+                  var id = l[l.length - 1];
                   postFile(id);
                 }
             },
