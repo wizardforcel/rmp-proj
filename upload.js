@@ -50,6 +50,7 @@ $(function()
     
     var postEssay = function(auid)
     {
+      var title = $('#title-txt').val();
       var kw = $('#kw-txt').val();
       var dt = new Date().toLocaleDateString()
       var xml = "<POST>\n" +
@@ -64,6 +65,10 @@ $(function()
                 "\t<Operation-set>\n" +
                 "\t\t<Target>this.status</Target>\n" +
                 "\t\t<Value>1</Value>\n" +
+                "\t</Operation-set>\n" + 
+                "\t<Operation-set>\n" +
+                "\t\t<Target>this.title</Target>\n" +
+                "\t\t<Value>" + title + "</Value>\n" +
                 "\t</Operation-set>\n" + 
                 "\t<Operation-add>\n" + 
                 "\t\t<Target>this.Author</Target>\n" +
