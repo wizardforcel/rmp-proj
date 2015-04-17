@@ -1,13 +1,13 @@
 $(function()
 {
-    
+
     var dlBtnOnClick = function()
     {
         var id = $(this).parent().parent().find(":last").text();
         //console.log(id);
         window.open('http://202.120.40.175:40011/file/Ucacb1171b84/xiaoQian/Essay/' + id);
     };
-    
+
     var loadList = function(list)
     {
         $('.list-row').remove();
@@ -18,7 +18,7 @@ $(function()
           var kw = elem.children('keywords').text();
           var title = elem.children('title').text();
           var date = elem.children('date').text();
-          var author = elem.find('Author name').text();
+          var author = elem.children('author').text();
           //console.log(id + ' ' + kw + ' ' + title + ' ' + date + ' ' + author);
           var tr = $('<tr class="list-row"></tr>');
           var titleTd = $('<td>' + title + '</td>');
@@ -39,7 +39,7 @@ $(function()
         }
         $('.dl-btn').click(dlBtnOnClick);
     };
-    
+
     var getList = function()
     {
         $.get('http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/Essay/',
@@ -57,14 +57,14 @@ $(function()
         });
     };
     getList();
-    
+
     var search = function()
     {
         var title = $('#title-txt').val();
         var kw = $('#kw-txt').val();
         var author = $('#au-txt').val();
         var date = $('date-txt').val();
-        
+
         var qw = [];
         if(title)
             qw.push("Essay.title=(like)" + title);
@@ -92,5 +92,5 @@ $(function()
         });
     };
     $('#search-btn').click(search);
-    
+
 });

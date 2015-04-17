@@ -8,6 +8,7 @@ $(function()
       $.get('http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/?USER.username=' + 
             un + '&USER.password=' + pw, function(data)
       {
+        console.log(data);
         if($(data).find('Collection').children().length == 0)
           alert('登录失败！');
         else

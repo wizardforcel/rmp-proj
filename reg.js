@@ -10,6 +10,29 @@ $(function()
             return;
         }
         var un = $('#un-txt').val();
+
+        //判断是否已注册
+        var url = 'http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/?USER.username=' + un;
+        var res = $.ajax(
+        {
+          type: 'GET',
+          async: false,
+          url: url
+        });
+        if(res.status != 200)
+        {
+          alert('注册失败！' + res.statusText);
+          return;
+        }
+        var data = res.responseXML;
+        console.log(data);
+        if($(data).find('Collection').children().length != 0)
+        {
+          alert('该用户名已被注册！');
+          return;
+        }
+
+        //注册
         var xml = "<POST>\n" +
                   "\t<Operation-set>\n" +
                   "\t\t<Target>this.username</Target>\n" +
@@ -25,36 +48,40 @@ $(function()
                   "\t</Operation-set>\n" +
                   "</POST>";
         console.log(xml);
-        var url = "http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/";
-        $.ajax(
+        url = "http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/";
+        res = $.ajax(
         {
-            type : "POST",
-            async : false,
-            url : url,
-            contentType : "application/xml",
-            data : xml,
-            success : function(data) 
-            {
-                var msg = $(data).find("error").text();
-                if (msg !== "")
-                  alert('注册失败！' + msg);
-                else
-                {
-                  alert('注册成功！');
-                  localStorage.setItem('un', un);
-                  localStorage.setItem('pw', pw);
-                  var t = $(data).find('Operation-Resource').text();
-                  var l = t.split('/');
-                  var id = l[l.length - 1];
-                  localStorage.setItem('id', id);
-                  location.href = './list.html';
-                }
-            },
-            error : function(XMLHttpRequest, textStatus, errorThrown) 
-            {
-                alert('注册失败！' + textStatus);
-            }
+            type: "POST",
+            async: false,
+            url: url,
+            contentType: "application/xml",
+            data: xml
         });
+        if(res.status != 200)
+        {
+          alert('注册失败！' + res.statusText);
+          return;
+        }
+        var data = res.responseXML;
+        console.log(data);
+        var msg = $(data).find("error").text();
+        if (msg !== "")
+            alert('注册失败！' + msg);
+        else
+        {
+          alert('注册成功！');
+          localStorage.setItem('un', un);
+          localStorage.setItem('pw', pw);
+          var t = $(data).find('Operation-Resource').text();
+          var l = t.split('/');
+          var id = l[l.length - 1];
+          localStorage.setItem('id', id);
+          location.href = './list.html';
+        }
     };
-    $('#reg-btn').click(doReg);
+    $('#reg-btn').click(function()
+    {
+        //ajax同步，用setTimeout异步，把代码捋直
+        setTimeout(doReg, 0);
+    });
 });
