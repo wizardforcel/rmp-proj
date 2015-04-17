@@ -11,12 +11,12 @@
   <style>
     #lgn-frm
     {
-      max-width: 300px;
+      max-width: 350px;
       margin: 0 auto;
       margin-top: 60px;
     }
-    input { margin-bottom: 5px; }
-    body { background: #eee; }
+    input { margin-bottom: 15px; }
+    .panel-body { padding: 25px;}
   </style>
 </head>
 <body>
@@ -41,12 +41,17 @@
     </div><!--/.nav-collapse -->
   </div>
     
-      <form id='lgn-frm'>
-        <h2>登录</h2>
-        <input type="text" id="un-txt" class="form-control" placeholder="用户名" autofocus />
-        <input type="password" id="pw-txt" class="form-control" placeholder="密码" />
-        <input class="btn btn-lg btn-primary btn-block" id='lgn-btn' type="button" value='登录' />
-      </form>
-    </div> <!-- .container -->
+      <div class="panel panel-primary" id='lgn-frm'>
+        <div class="panel-heading">
+            <h3 class="panel-title">登录</h3>
+        </div>
+        <div class='panel-body'>
+          <input type="text" id="un-txt" class="form-control" placeholder="用户名" autofocus />
+          <input type="password" id="pw-txt" class="form-control" placeholder="密码" />
+          <input class="btn btn-primary btn-block" id='lgn-btn' type="button" value='登录' />
+        </div>
+      </div>
+
+  </div> <!-- .container -->
 </body>
 </html>

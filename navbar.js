@@ -17,7 +17,9 @@ $(function()
       $('.navbar-toggle').append($('<span class="icon-bar"></span>'));
       $('.navbar-toggle').append($('<span class="icon-bar"></span>'));
       $('.navbar-toggle').append($('<span class="icon-bar"></span>'));
+      $('.navbar-toggle').append($('<span class="icon-bar"></span>'));
       $('.navbar-nav').append('<li><a href="./list.html">论文</a></li>');
+      $('.navbar-nav').append('<li><a href="./rdf.html">RDF</a></li>');
       $('.navbar-nav').append('<li><a href="./upload.html">上传</a></li>');
       if(isAdmin())
       {
