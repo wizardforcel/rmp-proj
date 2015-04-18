@@ -110,4 +110,30 @@ $(function()
     };
     $('#search-btn').click(search);
 
+    window.realRmEssay = function(id)
+    {
+        var url = "http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/Essay/" + id;
+        $.ajax(
+        {
+          type: "DELETE",
+          url: url,
+          async: true,
+          success: function(data)
+          {
+            var msg = $(data).find("error").text();
+            if (msg !== "")
+                alert('删除失败！' + msg);
+            else
+            {
+              alert('删除成功！');
+              location.reload();
+            }
+          },
+          error: function(xhr, text, ex)
+          {
+            alert('删除失败！' + text);
+          }
+        });
+    };
+
 });

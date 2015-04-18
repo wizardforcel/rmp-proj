@@ -17,8 +17,8 @@ $(function()
                 alert('用户删除失败！' + msg);
             else
             {
-              row.remove();
               alert('用户删除成功！');
+              location.reload();
             }
           },
           error: function(xhr, text, ex)
@@ -31,7 +31,50 @@ $(function()
 
     var rmBtnOnClick = function()
     {
+        if(!confirm('真的要删除吗？'))
+          return;
+   
+        var row = $(this).parent().parent();
+        var id = row.find(":first").text();
+        var un = row.find(":eq(1)").text();
+        console.log(id + ' ' + un);
+        if(un == 'admin')
+        {
+          alert('管理员不可删除！');
+          return;
+        }
 
+        var url = "http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/" + id;
+        var xml = "<PUT>\r\n" +
+                  "\t<Operation-set>\r\n" + 
+                  "\t\t<Target>this.usertype</Target>\r\n" +
+                  "\t\t<Value>0</Value>\r\n" +
+                  "\t</Operation-set>\r\n" +
+                  "</PUT>";
+        console.log(xml);
+        $.ajax(
+        {
+            type: "PUT",
+            async: true,
+            url: url,
+            contentType: "application/xml",
+            data: xml,
+            success: function(data)
+            {
+              var msg = $(data).find("error").text();
+              if (msg !== "")
+                  alert('用户删除失败！' + msg);
+              else
+              {
+                row.remove();
+                alert('用户删除成功！');
+              }
+            },
+            error: function(xhr, text, ex)
+            {
+              alert('用户删除失败！' + text);
+            }
+        });
     };
 
     var loadList = function(list)
@@ -59,8 +102,8 @@ $(function()
 
     var getList = function()
     {
-      $.get('http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/',
-              function(data)
+        $.get('http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/' + 
+              "?USER.usertype=1", function(data)
         {
           console.log(data);
             var xml = $(data);

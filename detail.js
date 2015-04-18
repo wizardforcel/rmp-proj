@@ -39,8 +39,44 @@ $(function()
     $('#dl-btn').click(dlBtnOnClick);
 
 
+    var rmBtnOnClick = function()
+    {
+    	if(!confirm('真的要删除吗？'))
+          return;
 
-
+        var url = "http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/Essay/" + essay.id;
+        var xml = "<PUT>\r\n" +
+                  "\t<Operation-set>\r\n" + 
+                  "\t\t<Target>this.status</Target>\r\n" +
+                  "\t\t<Value>0</Value>\r\n" +
+                  "\t</Operation-set>\r\n" +
+                  "</PUT>";
+        console.log(xml);
+        $.ajax(
+        {
+            type: "PUT",
+            async: true,
+            url: url,
+            contentType: "application/xml",
+            data: xml,
+            success: function(data)
+            {
+              var msg = $(data).find("error").text();
+              if (msg !== "")
+                  alert('删除失败！' + msg);
+              else
+              {
+                alert('删除成功！');
+                location.href = './list.html';
+              }
+            },
+            error: function(xhr, text, ex)
+            {
+              alert('删除失败！' + text);
+            }
+        });
+    };
+    $('#rm-btn').click(rmBtnOnClick);
 
 
 
