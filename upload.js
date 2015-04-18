@@ -71,11 +71,11 @@ $(function()
         
         //上传文件
         url = "http://202.120.40.175:40011/Entity/" + 
-                  "Ucacb1171b84/xiaoQian/Essay/" + eid.toString();
+              "Ucacb1171b84/xiaoQian/Essay/" + id.toString();
         var frm = new FormData();
         frm.append('file', $('#file')[0].files[0]);
         console.log($('#file')[0].files[0]);
-        $.ajax(
+        res = $.ajax(
         {
             type: "POST",
             async: false,

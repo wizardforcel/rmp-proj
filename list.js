@@ -35,7 +35,7 @@ $(function()
           var tr = $('<tr class="list-row"></tr>');
           var idTd = $('<td>' + id + '</td>')
           var titleTd = $('<td>' + title + '</td>');
-          var statusTable = ['已删除', '待审核', '审核中', '未通过', '已通过'];
+          var statusTable = ['已删除', '待审核', '审核中', '未通过', '已通过', '已撤销'];
           var statusTd = $('<td>' + statusTable[status] + '</td>');
           var statusNumTd = $('<td class="hidden">' + status + '</td>');
           var operTd = $('<td></td>');

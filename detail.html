@@ -70,6 +70,18 @@
         </div>
     </div>
 
+    <div class="panel panel-primary" id="ckli-panel">
+        <div class="panel-heading">
+            <p class="panel-title">审稿人</p>
+        </div>
+        <table class="table table-striped panel-body" id="ckli-table">
+            <tr>
+                <th>ID</th>
+                <th>评论</th>
+            </tr>
+        </table>
+    </div>
+
     <div class="panel panel-primary hidden" id="au-panel">
         <div class="panel-heading">
             <p class="panel-title">上传用户操作</p>
@@ -84,7 +96,11 @@
             <p class="panel-title">审稿人操作</p>
         </div>
         <div class="panel-body">
-            
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="button" id="fixcomment-btn" value="修改评论"  class="btn btn-primary btn-block" />
+                </div>
+            </div>
         </div>
     </div>
 
@@ -95,7 +111,31 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-3">
-                    <input type="button" id="rm-btn" value="删除"  class="btn btn-primary btn-block" />
+                    <select id='status-cmb' class='form-control'>
+                      <option value="2">审核中</option>
+                      <option value="3">未通过</option>
+                      <option value="4">已通过</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="button" id="status-btn" value="设置状态"  class="btn btn-primary btn-block" />
+                </div>
+                <div class="col-md-3">
+                    <input type="button" id="rm-btn" value="删除"  class="btn btn-danger btn-block" />
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="text" id="ckid-txt" class="form-control" placeholder="审稿人ID" autofocus />
+                </div>
+                <div class="col-md-3">
+                    <input type="button" id="ckadd-btn" value="添加"  class="btn btn-primary btn-block" />
+                </div>
+                <div class="col-md-3">
+                    <input type="button" id="ckrm-btn" value="移除"  class="btn btn-primary btn-block" />
                 </div>
             </div>
         </div>
