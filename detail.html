@@ -4,7 +4,7 @@
   <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" />
   <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
   <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" rel="stylesheet" />
-  <script src="./list.js"></script>
+  <script src="./detail.js"></script>
   <script src="./checknotlogin.js"></script>
   <link href="./main.css" rel="stylesheet" />
   <script src='./navbar.js'></script>
@@ -38,29 +38,62 @@
         <table class="table table-striped panel-body" id="list-table">
             <tr>
                 <th>id</th>
+                <td id="id-td"></td>
+            </tr>
+            <tr>
                 <th>标题</th>
+                <td id="title-td"></td>
+            </tr>
+            <tr>
+                <th>作者</th>
+                <td id="au-td"></td>
+            </tr>
+            <tr>
+                <th>关键词</th>
+                <td id="kw-td"></td>
+            </tr>
+            <tr>
+                <th>日期</th>
+                <td id="date-td"></td>
+            </tr>
+            <tr>
                 <th>状态</th>
-                <th>操作</th>
+                <td id="status-td"></td>
             </tr>
         </table>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-2">
-                    <input type="text" id="title-txt" placeholder="标题"  class="form-control" />
-                </div>
-                <div class="col-md-2">
-                    <input type="text" id="au-txt" placeholder="作者"  class="form-control" />
-                </div>
-                <div class="col-md-2">
-                    <input type="text" id="date-txt" placeholder="日期"  class="form-control" />
-                </div>
-                <div class="col-md-2">
-                    <input type="text" id="kw-txt" placeholder="关键字"  class="form-control" />
-                </div>
-                <div class="col-md-1">
-                    <input type="button" id="search-btn" value="搜索" class="btn btn-primary btn-block" />
+                <div class="col-md-3">
+                    <input type="button" id="dl-btn" value="下载"  class="btn btn-primary btn-block" />
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="panel panel-primary hidden" id="au-panel">
+        <div class="panel-heading">
+            <p class="panel-title">上传用户操作</p>
+        </div>
+        <div class="panel-body">
+            
+        </div>
+    </div>
+
+    <div class="panel panel-primary hidden" id="ck-panel">
+        <div class="panel-heading">
+            <p class="panel-title">审稿人操作</p>
+        </div>
+        <div class="panel-body">
+            
+        </div>
+    </div>
+
+    <div class="panel panel-primary hidden" id="admin-panel">
+        <div class="panel-heading">
+            <p class="panel-title">管理员操作</p>
+        </div>
+        <div class="panel-body">
+            
         </div>
     </div>
 

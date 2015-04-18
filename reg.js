@@ -12,7 +12,8 @@ $(function()
         var un = $('#un-txt').val();
 
         //判断是否已注册
-        var url = 'http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/?USER.username=' + un;
+        var url = 'http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/' + 
+                  '?USER.username=' + un + "&USER.usertype=1";
         var res = $.ajax(
         {
           type: 'GET',

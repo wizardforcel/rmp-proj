@@ -6,7 +6,7 @@ $(function()
       var pw = $('#pw-txt').val();
       //此处应该有校检
       $.get('http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/?USER.username=' + 
-            un + '&USER.password=' + pw, function(data)
+            un + '&USER.password=' + pw + "&USER.usertype=1", function(data)
       {
         console.log(data);
         if($(data).find('Collection').children().length == 0)

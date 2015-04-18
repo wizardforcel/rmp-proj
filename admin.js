@@ -1,43 +1,37 @@
 $(function()
 {
 
-	var rmBtnOnClick = function()
+    window.realRmUser = function(id)
     {
-    	if(!confirm('真的要删除吗？'))
-    		return;
-
-    	var row = $(this).parent().parent();
-        var id = row.find(":first").text();
-        var un = row.find(":eq(1)").text();
-        console.log(id + ' ' + un);
-        if(un == 'admin')
-        {
-        	alert('管理员不可删除！');
-        	return;
-        }
 
         var url = "http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/" + id;
-		$.ajax(
-		{
-			type: "DELETE",
-			url: url,
-			async: true,
-			success: function(data)
-			{
-				var msg = $(data).find("error").text();
-        		if (msg !== "")
-            		alert('用户删除失败！' + msg);
-            	else
-            	{
-            		row.remove();
-            		alert('用户删除成功！');
-            	}
-			},
-			error: function(xhr, text, ex)
-			{
-				alert('用户删除失败！' + text);
-			}
-		});
+        $.ajax(
+        {
+          type: "DELETE",
+          url: url,
+          async: true,
+          success: function(data)
+          {
+            var msg = $(data).find("error").text();
+            if (msg !== "")
+                alert('用户删除失败！' + msg);
+            else
+            {
+              row.remove();
+              alert('用户删除成功！');
+            }
+          },
+          error: function(xhr, text, ex)
+          {
+            alert('用户删除失败！' + text);
+          }
+        });
+    };
+
+
+    var rmBtnOnClick = function()
+    {
+
     };
 
     var loadList = function(list)
@@ -65,10 +59,10 @@ $(function()
 
     var getList = function()
     {
-    	$.get('http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/',
+      $.get('http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/',
               function(data)
         {
-        	console.log(data);
+          console.log(data);
             var xml = $(data);
             var errmsg = xml.find('error').text();
             if (errmsg != "")
