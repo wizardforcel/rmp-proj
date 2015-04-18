@@ -4,7 +4,12 @@ $(function()
     {
       var un = $('#un-txt').val();
       var pw = $('#pw-txt').val();
-      //此处应该有校检
+      if(!un || !pw)
+      {
+        alert('用户名和密码不能为空！');
+        return;
+      }
+
       $.get('http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/?USER.username=' + 
             un + '&USER.password=' + pw + "&USER.usertype=1", function(data)
       {

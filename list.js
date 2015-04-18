@@ -1,18 +1,28 @@
 $(function()
 {
+    var essayList = [];
 
     var opBtnOnClick = function()
     {
         var row = $(this).parent().parent();
-        //0: id, 1: title, 2: statusText, 3: oper, 5: au, 6: date, 7: kw, 8: statusNum
-        var essay = {};
-        essay.id = row.find(':eq(0)').text();
-        essay.title = row.find(':eq(1)').text();
-        essay.status = row.find(':eq(8)').text();
-        essay.author = row.find(':eq(5)').text();
-        essay.date = row.find(':eq(6)').text();
-        essay.kw = row.find(':eq(7)').text();
-        essay = JSON.stringify(essay);
+        var id = row.children(':eq(0)').text();
+        
+        var index = -1;
+        for(var i in essayList)
+        {
+          if(essayList[i].id == id)
+          {
+            index = i;
+            break;
+          }
+        }
+        if(index == -1)
+        {
+          alert('获取论文信息失败！')
+          return;
+        }
+
+        var essay = JSON.stringify(essayList[index]);
         console.log(essay);
         localStorage.essay = essay;
         location.href = './detail.html';
@@ -31,27 +41,27 @@ $(function()
           var title = elem.children('title').text();
           var date = elem.children('date').text();
           var author = elem.children('author').text();
-          //console.log(id + ' ' + kw + ' ' + title + ' ' + date + ' ' + author);
+          var ulid = elem.find('USER id').text();
+          var ulun = elem.find('USER username').text();
+          essayList.push(
+          {
+              id: id, title: title, status: status,
+              kw: kw, date: date, author: author,
+              ulid: ulid, ulun: ulun
+          });
+
           var tr = $('<tr class="list-row"></tr>');
           var idTd = $('<td>' + id + '</td>')
           var titleTd = $('<td>' + title + '</td>');
           var statusTable = ['已删除', '待审核', '审核中', '未通过', '已通过', '已撤销'];
           var statusTd = $('<td>' + statusTable[status] + '</td>');
-          var statusNumTd = $('<td class="hidden">' + status + '</td>');
           var operTd = $('<td></td>');
-          var authorTd = $('<td class="hidden">' + author + '</td>');
-          var dateTd = $('<td class="hidden">' + date + '</td>');
-          var kwTd = $('<td class="hidden">' + kw + '</td>');
           var opbtn = $('<a class="view-btn">查看</a>');
           operTd.append(opbtn);
           tr.append(idTd);
           tr.append(titleTd);
           tr.append(statusTd);
           tr.append(operTd);
-          tr.append(authorTd);
-          tr.append(dateTd);
-          tr.append(kwTd);
-          tr.append(statusNumTd);
           $('#list-table').append(tr);
         }
         $('.view-btn').click(opBtnOnClick);
@@ -90,7 +100,7 @@ $(function()
         if(date)
             qw.push("Essay.date=" + date);
         if(author)
-            qw.push("Essay.Author.name=(like)" + author);
+            qw.push("Essay.author=(like)" + author);
         var qstr = "";
         if(qw.length != 0)
             qstr = qw.join('&');

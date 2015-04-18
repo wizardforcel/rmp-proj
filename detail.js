@@ -10,6 +10,7 @@ $(function()
     $('#date-td').text(essay.date);
     var statusTable = ['已删除', '待审核', '审核中', '未通过', '已通过', '已撤销'];
     $('#status-td').text(statusTable[essay.status]);
+    $('#ul-td').text(essay.ulun + ' (#' + essay.ulid + ')');
 
     //获取审稿人信息
     var ckList = [];
@@ -28,6 +29,7 @@ $(function()
           alert('注册失败！' + res.statusText);
           return;
         }
+        console.log(res.responseXML);
         var xml = $(res.responseXML);
         var errmsg = xml.find('error').text();
         if (errmsg != "")
@@ -42,12 +44,13 @@ $(function()
           var elem = list.slice(i, i + 1);
           var comment = elem.children('comment').text();
           var cid = elem.children('id').text();
-          var id = elem.find('USER id').text();
-          ckList.push({id: id, cid: cid, comment: comment});
+          var id = elem.children('USER').children('id').text();
+          var un = elem.children('USER').children('username').text();
+          ckList.push({id: id, un: un, cid: cid, comment: comment});
           var tr = $('<tr class="ckli-row"></tr>');
-          var idTd = $('<td>' + id + '</td>')
+          var unTd = $('<td>' + un + ' (#' + id + ')</td>')
           var commentTd = $('<td>' + comment + '</td>');
-          tr.append(idTd);
+          tr.append(unTd);
           tr.append(commentTd);
           $('#ckli-table').append(tr);
         }
@@ -58,7 +61,7 @@ $(function()
     //判断当前用户状态
     var isAuthor = function()
     {
-      return essay.aid == localStorage.id;
+      return essay.ulid == localStorage.id;
     };
 
     var isChecker = function()
@@ -66,7 +69,6 @@ $(function()
       for(var i in ckList)
         if(ckList[i].id == localStorage.id)
         {
-          console.log(ckList[i].id);
           return true;
         }
       return false;
@@ -149,6 +151,12 @@ $(function()
       if(!/^\d+$/.test(id))
       {
         alert('请填写正确的审稿人id！');
+        return;
+      }
+
+      if(id == essay.ulid)
+      {
+        alert('不能添加上传ID为审稿人！');
         return;
       }
 
@@ -265,15 +273,8 @@ $(function()
     };
     $('#ckrm-btn').click(rmCk);
 
-    var setStatus = function()
+    var setStatus = function(status)
     {
-        if(!(essay.status == 2 || essay.status == 1))
-        {
-          alert('当前状态下无法设置！');
-          return;
-        }
-
-        var status = $('#status-cmb').val();
         var url = 'http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/Essay/' + essay.id;
         var xml = "<PUT>\r\n" +
                   "\t<Operation-set>\r\n" +
@@ -309,10 +310,29 @@ $(function()
             }
         });
     };
-    $('#status-btn').click(setStatus);
+    window.setStatus = setStatus;
+
+    var adminSetStatus = function()
+    {
+        if(!(essay.status == 2 || essay.status == 1))
+        {
+          alert('当前状态下无法设置！');
+          return;
+        }
+
+        var status = $('#status-cmb').val();
+        setStatus(status);
+    };
+    $('#status-btn').click(adminSetStatus);
 
     var fixComment = function()
     {
+        if(essay.status != 2)
+        {
+          alert('当前不在审核状态！');
+          return;
+        }
+
         var comment = prompt('请填写评论');
         if(!comment)
         {
@@ -369,5 +389,29 @@ $(function()
         });
     };
     $('#fixcomment-btn').click(fixComment);
+
+    var cancelEssay = function()
+    {
+        if(!(essay.status == 1 || essay.status == 3))
+        {
+          alert('论文当前状态无法撤销！');
+          return;
+        }
+
+        setStatus(5);
+    };
+    $('#cancel-btn').click(cancelEssay);
+
+    var fixEssay = function()
+    {
+        if(!(essay.status == 1 || essay.status == 3))
+        {
+          alert('论文当前状态无法修改！');
+          return;
+        }
+
+        location.href = './fix.html';
+    };
+    $('#fix-btn').click(fixEssay);
 
 });

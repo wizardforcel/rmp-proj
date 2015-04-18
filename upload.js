@@ -18,6 +18,11 @@ $(function()
         var title = $('#title-txt').val();
         var kw = $('#kw-txt').val();
         var dt = new Date().toLocaleDateString()
+        if(!author || !title || !kw || !$('#file').val())
+        {
+          alert('作者、标题、关键词、文件不能为空！')
+          return;
+        }
 
         //提交元数据
         var xml = "<POST>\n" +
@@ -40,6 +45,10 @@ $(function()
                   "\t<Operation-set>\n" +
                   "\t\t<Target>this.author</Target>\n" +
                   "\t\t<Value>" + author + "</Value>\n" +
+                  "\t</Operation-set>\n" + 
+                  "\t<Operation-set>\n" +
+                  "\t\t<Target>this.USER</Target>\n" +
+                  "\t\t<Value>Ucacb1171b84/xiaoQian/USER/" + localStorage.id + "</Value>\n" +
                   "\t</Operation-set>\n" + 
                   "</POST>";
         console.log(xml);

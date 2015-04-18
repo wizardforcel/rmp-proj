@@ -10,6 +10,11 @@ $(function()
             return;
         }
         var un = $('#un-txt').val();
+        if(!un || !pw)
+        {
+          alert('用户名和密码不能为空！');
+          return;
+        }
 
         //判断是否已注册
         var url = 'http://202.120.40.175:40011/Entity/Ucacb1171b84/xiaoQian/USER/' + 
